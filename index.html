@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Metodo AURICE</title>
+
+  <meta
+    name="description"
+    content="Metodo AURICE: un metodo di studio pratico, visivo e organizzato, pensato per aiutare studenti, genitori e tutor."
+  >
+
+  <style>
+    :root {
+      --black: #050505;
+      --soft-black: #0d0d0d;
+      --gold: #c89b4b;
+      --light-gold: #edcf8e;
+      --white: #f5f5f2;
+      --grey: #a8a8a8;
+      --line: rgba(200, 155, 75, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top, rgba(200, 155, 75, 0.08), transparent 35%),
+        var(--black);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: rgba(5, 5, 5, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      max-width: 1180px;
+      margin: auto;
+      min-height: 78px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .mini-logo {
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 38px;
+      font-style: italic;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .brand-text strong {
+      display: block;
+      color: var(--light-gold);
+      letter-spacing: 5px;
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .brand-text small {
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.7px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 30px;
+      color: #d8d8d8;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .menu a {
+      transition: 0.3s ease;
+    }
+
+    .menu a:hover {
+      color: var(--gold);
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 130px 24px 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-content {
+      width: 100%;
+      max-width: 980px;
+      animation: appear 1.5s ease forwards;
+    }
+
+    .main-logo {
+      width: 230px;
+      height: 230px;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      filter: drop-shadow(0 15px 30px rgba(200, 155, 75, 0.16));
+    }
+
+    .main-logo::before {
+      content: "A";
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 220px;
+      font-style: italic;
+      font-weight: bold;
+      line-height: 1;
+      background: linear-gradient(
+        145deg,
+        #8b6227,
+        #edcf8e,
+        #b27a2e,
+        #f3d99b
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .main-logo::after {
+      content: "";
+      position: absolute;
+      width: 175px;
+      height: 4px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--light-gold),
+        transparent
+      );
+      transform: rotate(-15deg);
+      top: 128px;
+      left: 30px;
+      border-radius: 100%;
+    }
+
+    h1 {
+      font-size: clamp(48px, 10vw, 108px);
+      font-weight: 300;
+      letter-spacing: clamp(10px, 2vw, 26px);
+      margin-left: clamp(10px, 2vw, 26px);
+      text-shadow: 0 4px 20px rgba(255, 255, 255, 0.12);
+    }
+
+    .tagline {
+      margin-top: 14px;
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: clamp(17px, 2.2vw, 27px);
+      letter-spacing: 4px;
+    }
+
+    .tagline::before,
+    .tagline::after {
+      content: "";
+      display: inline-block;
+      width: 65px;
+      height: 1px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin: 0 18px;
+    }
+
+    .intro {
+      max-width: 690px;
+      margin: 34px auto 0;
+      color: var(--grey);
+      font-size: 17px;
+    }
+
+    .buttons {
+      margin-top: 38px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      min-width: 180px;
+      padding: 15px 24px;
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      transition: 0.35s ease;
+    }
+
+    .button.primary {
+      background: var(--gold);
+      color: #080808;
+    }
+
+    .button:hover {
+      background: var(--light-gold);
+      border-color: var(--light-gold);
+      color: #080808;
+      transform: translateY(-3px);
+    }
+
+    section {
+      padding: 100px 24px;
+    }
+
+    .section-inner {
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-title span {
+      color: var(--gold);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+    }
+
+    .section-title h2 {
+      margin-top: 12px;
+      font-size: clamp(32px, 5vw, 55px);
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    .values {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .value {
+      min-height: 220px;
+      padding: 38px 20px;
+      text-align: center;
+      border-right: 1px solid var(--line);
+      transition: 0.35s ease;
+    }
+
+    .value:last-child {
+      border-right: none;
+    }
+
+    .value:hover {
+      background: rgba(200, 155, 75, 0.05);
+      transform: translateY(-5px);
+    }
+
+    .icon {
+      color: var(--gold);
+      font-size: 38px;
+      margin-bottom: 18px;
+    }
+
+    .value h3 {
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .value p {
+      color: var(--grey);
+      font-size: 14px;
+    }
+
+    .method {
+      background: linear-gradient(
+        180deg,
+        var(--black),
+        var(--soft-black),
+        var(--black)
+      );
+    }
+
+    .method-box {
+      max-width: 900px;
+      margin: auto;
+      padding: 50px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.015);
+      text-align: center;
+    }
+
+    .method-box p {
+      color: #b8b8b8;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .signature {
+      color: var(--gold) !important;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 45px 24px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    footer strong {
+      color: var(--gold);
+      letter-spacing: 4px;
+      font-weight: 400;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 850px) {
+      .menu {
+        display: none;
+      }
+
+      nav {
+        min-height: 68px;
+      }
+
+      .main-logo {
+        width: 165px;
+        height: 165px;
+      }
+
+      .main-logo::before {
+        font-size: 160px;
+      }
+
+      .main-logo::after {
+        width: 125px;
+        top: 94px;
+        left: 20px;
+      }
+
+      .tagline {
+        letter-spacing: 2px;
+      }
+
+      .tagline::before,
+      .tagline::after {
+        width: 28px;
+        margin: 0 9px;
+      }
+
+      .values {
+        grid-template-columns: 1fr;
+      }
+
+      .value {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .value:last-child {
+        border-bottom: none;
+      }
+
+      .method-box {
+        padding: 34px 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand-text strong {
+        font-size: 14px;
+        letter-spacing: 4px;
+      }
+
+      .hero {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      h1 {
+        letter-spacing: 8px;
+        margin-left: 8px;
+      }
+
+      .tagline::before,
+      .tagline::after {
+        display: none;
+      }
+
+      .intro {
+        font-size: 15px;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <a class="brand" href="#home">
+        <div class="mini-logo">A</div>
+
+        <div class="brand-text">
+          <strong>AURICE</strong>
+          <small>Designed to simplify life.</small>
+        </div>
+      </a>
+
+      <div class="menu">
+        <a href="#home">Home</a>
+        <a href="#metodo">Il Metodo</a>
+        <a href="#valori">I Valori</a>
+        <a href="#contatti">Contatti</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="hero-content">
+
+        <div class="main-logo" aria-label="Logo AURICE"></div>
+
+        <h1>AURICE</h1>
+
+        <div class="tagline">
+          Designed to simplify life.
+        </div>
+
+        <p class="intro">
+          Un metodo di studio pratico, visivo e organizzato,
+          pensato per accompagnare studenti, genitori e tutor
+          verso maggiore autonomia, serenità e consapevolezza.
+        </p>
+
+        <div class="buttons">
+          <a class="button primary" href="#metodo">
+            Scopri il Metodo
+          </a>
+
+          <a class="button" href="#contatti">
+            Contattaci
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="valori">
+      <div class="section-inner">
+
+        <div class="section-title">
+          <span>Il nostro approccio</span>
+          <h2>Semplificare per migliorare</h2>
+        </div>
+
+        <div class="values">
+
+          <article class="value">
+            <div class="icon">▦</div>
+            <h3>Organizza</h3>
+            <p>
+              Strumenti chiari per mettere ordine
+              nel materiale e nello studio.
+            </p>
+          </article>
+
+          <article class="value">
+            <div class="icon">◎</div>
+            <h3>Pianifica</h3>
+            <p>
+              Obiettivi concreti e una direzione
+              precisa da seguire.
+            </p>
+          </article>
+
+          <article class="value">
+            <div class="icon">↗️</div>
+            <h3>Migliora</h3>
+            <p>
+              Ogni errore diventa un'occasione
+              per comprendere e crescere.
+            </p>
+          </article>
+
+          <article class="value">
+            <div class="icon">▣</div>
+            <h3>Semplifica</h3>
+            <p>
+              Procedimenti complessi trasformati
+              in passaggi chiari e intuitivi.
+            </p>
+          </article>
+
+          <article class="value">
+            <div class="icon">♡</div>
+            <h3>Vivi meglio</h3>
+            <p>
+              Più autonomia nello studio,
+              meno stress nella vita quotidiana.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="method" id="metodo">
+      <div class="section-inner">
+
+        <div class="section-title">
+          <span>Metodo AURICE</span>
+          <h2>Una strada chiara da seguire</h2>
+        </div>
+
+        <div class="method-box">
+          <p>
+            Il Metodo AURICE nasce dall'esperienza diretta
+            con bambini e ragazzi di età diverse.
+            Utilizza organizzazione, colori, strumenti visivi
+            e procedimenti costruiti passo dopo passo.
+          </p>
+
+          <p>
+            L'obiettivo non è soltanto completare un esercizio
+            o preparare un'interrogazione, ma aiutare ogni studente
+            a costruire un metodo personale e diventare autonomo.
+          </p>
+
+          <p class="signature">
+            Non imparare soltanto la risposta.
+            Impara a trovare la strada.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contatti">
+      <div class="section-inner">
+
+        <div class="section-title">
+          <span>Il progetto sta prendendo vita</span>
+          <h2>Il futuro di AURICE inizia qui</h2>
+        </div>
+
+        <div class="method-box">
+          <p>
+            Stiamo lavorando al manuale ufficiale,
+            alle schede operative e agli strumenti
+            del Metodo AURICE.
+          </p>
+
+          <p>
+            Presto questa pagina ospiterà tutte le novità
+            del progetto.
+          </p>
+
+          <a
+            class="button primary"
+            href="mailto:aurice.officiall@gmail.com"
+          >
+            Scrivici
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <strong>AURICE®</strong>
+    <br><br>
+    Designed to simplify life.
+    <br>
+    Founded · July 11, 2026
+  </footer>
+
+</body>
+</html>
