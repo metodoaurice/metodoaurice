@@ -1,0 +1,54 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AURICE™ — So da dove cominciare</title><style>
+:root{--gold:#e9b83d;--pale:#f4e0a6}*{box-sizing:border-box}body{margin:0;background:#090704;color:#fff;font-family:Georgia,serif}
+header{background:#020202;border-bottom:2px solid #bd8724;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 3%;flex-wrap:wrap}
+.brand{color:var(--gold);font-size:clamp(26px,4vw,45px);letter-spacing:.12em}.brand small{display:block;font:12px Arial;letter-spacing:.07em}
+nav{display:flex;gap:clamp(8px,2vw,32px);font:14px Arial;flex-wrap:wrap}nav span:nth-child(3){color:var(--gold);border-bottom:2px solid}
+main{min-height:calc(100vh - 100px);background:radial-gradient(ellipse at 50% 75%,#70400d 0%,#211306 34%,#080705 75%);padding:12px 12px 28px}
+h1{color:var(--gold);text-align:center;font-size:clamp(23px,3.4vw,42px);margin:8px 0 0;letter-spacing:.08em}
+.sub{text-align:center;font-style:italic;font-size:clamp(15px,2vw,24px);margin:0 0 15px}
+.stage{max-width:1220px;margin:auto;display:flex;align-items:center;gap:8px}
+.arrow{flex:0 0 45px;border:2px solid var(--gold);border-radius:50%;background:#050403;color:var(--gold);height:45px;font-size:29px;cursor:pointer}
+.book{width:100%;min-width:0;position:relative;filter:drop-shadow(0 20px 12px #000);perspective:1200px}
+.spread{display:flex;aspect-ratio:1.68;max-height:70vh;min-height:250px;border:4px ridge #d9a83b;border-radius:18px 18px 10px 10px;background:#070605;box-shadow:0 0 0 3px #3b2508,0 9px 0 #b88328,0 14px 0 #291604,0 20px 25px #000;overflow:hidden}
+.sheet{width:50%;height:100%;position:relative;background:#0a0908;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.sheet:first-child{border-right:4px solid #ac7a24;box-shadow:inset -15px 0 22px #000}
+.sheet:last-child{box-shadow:inset 12px 0 20px #442707}
+.sheet img{width:100%;height:100%;object-fit:contain}
+.sheet .pageNumber{position:absolute;bottom:8px;color:#e9bf69;background:#090704bd;padding:2px 9px;border-radius:15px;font:12px Arial}
+.cover{height:min(69vh,650px);display:flex;justify-content:center;align-items:center}
+.cover img{height:100%;max-width:90%;object-fit:contain;box-shadow:10px 12px 0 #6d481b,18px 20px 25px #000;border:2px solid #c69b43}
+.flip{animation:turn .48s ease both}@keyframes turn{0%{transform:rotateY(-13deg);opacity:.55}100%{transform:rotateY(0);opacity:1}}
+.controls{max-width:1220px;margin:22px auto 10px;display:flex;justify-content:space-between;gap:8px;align-items:center;font:14px Arial}
+button{cursor:pointer}.pill{background:#050505;border:1px solid var(--gold);border-radius:25px;padding:10px 16px;color:#fff}
+.thumbs{display:flex;gap:9px;overflow-x:auto;max-width:1220px;margin:12px auto;padding:10px 3px;scrollbar-color:#bd8a29 #17110b}
+.thumb{flex:0 0 80px;min-height:90px;border:1px solid #c99530;border-radius:9px;background:linear-gradient(135deg,#191009,#6a4213);color:#f4d991;font:12px Georgia;padding:8px;cursor:pointer}
+.thumb.active{outline:3px solid #f8c64b;box-shadow:0 0 17px #e8ad39}
+.note{color:#bca97d;text-align:center;font:12px Arial;max-width:850px;margin:10px auto}
+@media(max-width:720px){header{justify-content:center}.stage{gap:3px}.arrow{flex-basis:30px;height:36px;font-size:23px}.spread{aspect-ratio:.78;min-height:400px}.sheet{width:100%}.sheet:first-child{display:none}.controls{font-size:11px}.pill{padding:8px}.thumb{flex-basis:66px}}
+</style></head><body>
+<header><div class="brand">AURICE™<small>Designed to simplify life.</small></div><nav><span>HOME</span><span>IL METODO</span><span>MANUALE</span><span>STARTER KIT</span><span>CONTATTI</span></nav></header>
+<main><h1>IL MANUALE AURICE™</h1><p class="sub">So da dove cominciare.</p>
+<div class="stage"><button class="arrow" onclick="go(-1)" aria-label="Pagina precedente">‹</button>
+<div class="book" id="book"></div><button class="arrow" onclick="go(1)" aria-label="Pagina successiva">›</button></div>
+<div class="controls"><button class="pill" onclick="goTo(0)">▦ Indice / Copertina</button><span class="pill" id="counter"></span><button class="pill" onclick="full()">⛶ Schermo intero</button></div>
+<div class="thumbs" id="thumbs"></div>
+<p class="note">Anteprima privata di lavorazione • 104 pagine dell'opera originale • Pagine del manuale in nero, bianco e oro; schede operative a colori originali. Anteprima da revisionare prima della pubblicazione.</p>
+</main><script>
+let current=0;const total=104;
+const image=n=>'pagine/'+String(n).padStart(3,'0')+'.webp';
+function render(){
+const book=document.getElementById('book');
+if(current===0){book.innerHTML='<div class="cover flip"><img src="copertina.png" alt="Copertina AURICE originale approvata"></div>'}
+else {const left=current,right=current+1;book.innerHTML='<div class="spread flip"><div class="sheet"><img src="'+image(left)+'" alt="Pagina '+left+'"><span class="pageNumber">'+left+'</span></div><div class="sheet"><img src="'+image(right)+'" alt="Pagina '+right+'"><span class="pageNumber">'+right+'</span></div></div>'}
+document.getElementById('counter').textContent=current===0?'Copertina':`Pagine ${current} – ${current+1} di ${total}`;
+document.querySelectorAll('.thumb').forEach(x=>x.classList.toggle('active',+x.dataset.p===current));
+document.querySelector('.thumb.active')?.scrollIntoView({inline:'nearest',block:'nearest'});
+}
+function go(delta){goTo(current+delta*2)}
+function goTo(p){current=Math.max(0,Math.min(103,p));if(current>0&&current%2===0)current--;render()}
+function full(){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)});
+const t=document.getElementById('thumbs');for(let p=0;p<=103;p+=2){let b=document.createElement('button');b.className='thumb';b.dataset.p=p;b.textContent=p===0?'✦ COPERTINA':`AURICE™\n${p}–${p+1}`;b.onclick=()=>goTo(p===0?0:p-1);t.appendChild(b)}
+render();
+</script></body></html>
